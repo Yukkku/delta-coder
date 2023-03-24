@@ -12,14 +12,19 @@
     <script type="text/javascript">
       require.config({ paths: { vs: '../node_modules/monaco-editor/min/vs' } });
 
+      const editorElem = document.querySelector('#editor');
       require(['vs/editor/editor.main'], () => {
         const editor = monaco.editor.create(
-          document.querySelector('#editor'),
+          editorElem,
           {
             value: 'console.log("Hello world!");',
             language: "javascript",
+            theme: 'vs-dark',
           },
         );
+        new ResizeObserver(() => {
+          editor.layout();
+        }).observe(editorElem);
       });
     </script>
   </body>
