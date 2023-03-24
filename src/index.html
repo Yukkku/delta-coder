@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>Delta Coder</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div id="editor"></div>
+    <script type="text/javascript" src="../node_modules/monaco-editor/min/vs/loader.js"></script>
+    <script type="text/javascript">
+      require.config({ paths: { vs: '../node_modules/monaco-editor/min/vs' } });
+
+      require(['vs/editor/editor.main'], () => {
+        const editor = monaco.editor.create(
+          document.querySelector('#editor'),
+          {
+            value: 'console.log("Hello world!");',
+            language: "javascript",
+          },
+        );
+      });
+    </script>
+  </body>
+</html>
