@@ -10,6 +10,7 @@
   "author": "Yukkku",
   "license": "MIT",
   "dependencies": {
+    "katex": "^0.16.4",
     "monaco-editor": "^0.36.1"
   }
 }
