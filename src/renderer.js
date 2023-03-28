@@ -1,3 +1,4 @@
+import { Atcoder } from './atcoder.js';
 
 require.config({ paths: { vs: '../node_modules/monaco-editor/min/vs' } });
 
@@ -5,31 +6,35 @@ require.config({ paths: { vs: '../node_modules/monaco-editor/min/vs' } });
 const editorElem = document.querySelector('#editor');
 /** @type {HTMLDivElement} */
 const problemElem = document.querySelector('#problem');
+/** @type {HTMLInputElement} */
+const contestidElem = document.querySelector('#contestid');
 
-require(['vs/editor/editor.main'], () => {
-  const editor = monaco.editor.create(
-    editorElem,
-    {
-      value: 'console.log("Hello world!");',
-      language: "javascript",
-      theme: 'vs-dark',
-    },
-  );
-  new ResizeObserver(() => {
-    editor.layout();
-  }).observe(editorElem);
+await new Promise(resolve => require(['vs/editor/editor.main'], resolve));
+
+const editor = monaco.editor.create(
+  editorElem,
+  {
+    value: 'console.log("Hello world!");',
+    language: "javascript",
+    theme: 'vs-dark',
+  },
+);
+
+new ResizeObserver(() => {
+  editor.layout();
+}).observe(editorElem);
+/*
+problemElem.appendChild(await new Atcoder().getProblem(contestidElem.value, 0));
+
+contestidElem.addEventListener('change', async() => {
+  problemElem.innerHTML = '';
+  problemElem.appendChild(await new Atcoder().getProblem(contestidElem.value, 0));
 });
+*/
 
-(async () => {
-  const contestId = 'utpc2022';
-
-  const htmlText = await fetch(`https://atcoder.jp/contests/${contestId}/tasks_print`).then(res => res.text());
-  /** @type {HTMLElement} */
-  const probCt = new DOMParser().parseFromString(htmlText, 'text/html').querySelector('.row');
-
-  for (const elem of probCt.getElementsByTagName('var')) {
-    katex.render(elem.textContent, elem);
-  }
-
-  problemElem.appendChild(probCt);
-})();
+const problemInfo = await new Atcoder().getProblem('practice_1');
+problemElem.querySelector('.title').innerHTML = problemInfo.title;
+problemElem.querySelector('.statement').innerHTML = problemInfo.statement;
+problemElem.querySelectorAll('var').forEach(elem => {
+  katex.render(elem.textContent, elem);
+});

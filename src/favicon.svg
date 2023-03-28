@@ -1,0 +1,19 @@
+<svg viewbox="0 0 120 120" xmlns=”http://www.w3.org/2000/svg”>
+  <path d="
+    M  60   0
+    L  32  56
+    L  60  84
+    L  88  56
+  " fill="#22b"/>
+  <path d="
+    M  30  60
+    L   0 120
+    H  90
+  " fill="#008"/>
+  <path d="
+    M  90  60
+    L  63  87
+    L  96 120
+    H 120
+  " fill="#44e"/>
+</svg>
