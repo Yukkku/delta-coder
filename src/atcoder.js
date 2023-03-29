@@ -44,7 +44,7 @@ export class Atcoder {
       const htmlText = await fetch(`https://atcoder.jp/contests/${problemInfo.contestId[0]}/tasks/${problemId}`).then(res => res.text());
       const dom = new DOMParser().parseFromString(htmlText, 'text/html');
       const statement = dom.querySelector('#task-statement .lang-ja')?.innerHTML ?? '';
-      const title = dom.querySelector('.h2')?.textContent ?? '';
+      const title = dom.querySelector('title')?.textContent ?? '';
 
       problemInfo.statement = statement;
       problemInfo.title = title;
