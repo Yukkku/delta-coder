@@ -1,32 +1,30 @@
+// @ts-nocheck: requireとかの調整が大変
+
 require.config({ paths: { vs: '../node_modules/monaco-editor/min/vs' } });
 await new Promise(resolve => require(['vs/editor/editor.main'], resolve));
 
-/** @type {HTMLDivElement} */
-const elem = Object.assign(document.createElement('div'), {
-  classList: ['tab-editor'],
-  style: 'grid-area: editor;',
-});
+import { Tab } from './tab.js';
 
-/** @type {HTMLDivElement} */
-const editorElem = document.createElement('div');
+export class Editor extends Tab {
+  /**
+   * @param {string} tabid
+   */
+  constructor (tabid) {
+    super(tabid);
+    /** @type {{}} */
+    this.related = {};
 
-elem.appendChild(editorElem);
+    const editor = monaco.editor.create(
+      this.innerElem,
+      {
+        value: 'console.log("Hello world!");',
+        language: "javascript",
+        theme: 'vs-dark',
+      },
+    );
 
-/** @type {HTMLDivElement} */ // @ts-ignore: index.html上ではあります。
-const mainGridElem = document.getElementById('mainGrid');
-mainGridElem.appendChild(elem);
-
-const editor = monaco.editor.create(
-  editorElem,
-  {
-    value: 'console.log("Hello world!");',
-    language: "javascript",
-    theme: 'vs-dark',
-  },
-);
-
-new ResizeObserver(() => {
-  editor.layout();
-}).observe(elem);
-
-export default elem;
+    new ResizeObserver(() => {
+      editor.layout();
+    }).observe(this.outerElem);
+  }
+}

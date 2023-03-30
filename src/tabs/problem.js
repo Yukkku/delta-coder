@@ -1,43 +1,47 @@
 // @ts-check
 
+import { Tab } from './tab.js';
+
 import { Atcoder } from '../atcoder.js';
 import katex from '../../node_modules/katex/dist/katex.mjs';
 
-/** @type {HTMLDivElement} */
-const elem = Object.assign(document.createElement('div'), {
-  classList: ['tab-problem'],
-  style: 'grid-area: problem;',
-});
+export class Problem extends Tab {
+  /** @type {HTMLHeadingElement} */
+  #titleElem;
+  /** @type {HTMLDivElement} */
+  #statementElem;
 
-/** @type {HTMLHeadingElement} */
-const titleElem = Object.assign(document.createElement('h2'), {
-  classList: ['title'],
-});
-/** @type {HTMLDivElement} */
-const statementElem = Object.assign(document.createElement('div'), {
-  classList: ['statement'],
-});
+  /**
+   * @param {string} tabid
+   */
+  constructor (tabid) {
+    super(tabid);
+    /** @type {{}} */
+    this.related = {};
 
-elem.append(titleElem, statementElem);
+    this.#titleElem = Object.assign(document.createElement('h2'), {
+      classList: ['title'],
+    });
 
-/** @type {HTMLDivElement} */ // @ts-ignore: index.html上ではあります。
-const mainGridElem = document.getElementById('mainGrid');
-mainGridElem.appendChild(elem);
+    this.#statementElem = Object.assign(document.createElement('div'), {
+      classList: ['statement'],
+    });
 
-/**
- * @param {string} problemId
- */
-const loadProblem = async problemId => {
-  const problemInfo = await new Atcoder().getProblem(problemId);
+    this.innerElem.append(this.#titleElem, this.#statementElem);
+    this.loadProblem('practice_1')
+  }
 
-  titleElem.textContent = problemInfo.title || 'Not Found';
-  statementElem.innerHTML = problemInfo.statement;
-
-  elem.querySelectorAll('var').forEach(elem => {
-    katex.render(elem.textContent, elem, {});
-  });
-};
-
-loadProblem('practice_1');
-
-export default elem;
+  /**
+   * @param {string} problemId
+   */
+  async loadProblem (problemId) {
+    const problemInfo = await new Atcoder().getProblem(problemId);
+  
+    this.#titleElem.textContent = problemInfo.title || 'Not Found';
+    this.#statementElem.innerHTML = problemInfo.statement;
+  
+    this.#statementElem.querySelectorAll('var').forEach(elem => {
+      katex.render(elem.textContent, elem, {});
+    });
+  }
+}
