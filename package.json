@@ -1,6 +1,6 @@
 {
   "name": "delta-coder",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "競技プログラミングのためのエディター",
   "main": "src/main.js",
   "type": "commonjs",

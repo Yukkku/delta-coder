@@ -1,6 +1,6 @@
 // @ts-check
 
-import katex from '../../../node_modules/katex/dist/katex.mjs';
+import katex from 'katex';
 
 document.head.appendChild(Object.assign(document.createElement('link'), {
   rel: 'stylesheet',
@@ -21,7 +21,7 @@ export const setup = async () => {
   });
 
   dom.querySelectorAll('var').forEach(elem => {
-    katex.render(elem.textContent, elem);
+    katex.render(elem.textContent ?? '', elem);
   });
 
   mainElem.innerHTML = dom.querySelector('.lang-ja')?.innerHTML ?? '';
