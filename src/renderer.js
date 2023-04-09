@@ -1,12 +1,15 @@
 // @ts-check
 
-import { Problem } from './tabs/problem.js';
-import { Editor } from './tabs/editor.js';
+import * as wins from './wins/main.js';
 
-/** @type {HTMLDivElement} */ // @ts-ignore: index.html上にあるので大丈夫。
-const mainGrid = document.getElementById('mainGrid');
+const tabTitle = location.hash.slice(1);
+/** @type {HTMLDivElement} */ // @ts-ignore: index.html上にあるので非null
+const headerElem = document.querySelector('#header');
 
-mainGrid.append(
-  new Problem('problem').outerElem,
-  new Editor('editor').outerElem,
-);
+headerElem.textContent = tabTitle;
+
+if (wins[tabTitle]) {
+  const win = wins[tabTitle];
+  await win.setup();
+} else {
+}

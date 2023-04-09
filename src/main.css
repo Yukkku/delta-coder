@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  background-color: #1e1e1e;
+  color: #fff;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+#header {
+  position: fixed;
+  left: calc(env(titlebar-area-x) - 100vw);
+  top: env(titlebar-area-y);
+  width: env(titlebar-area-width);
+  height: env(titlebar-area-height);
+  padding: 0 100vw;
+  -webkit-app-region: drag;
+  user-select: none;
+
+  background-color: #323233;
+  color: #8e8e8e;
+  text-align: center;
+  font-size: 0.8rem;
+  overflow: hidden;
+  line-height: env(titlebar-area-height);
+}
+
+#main {
+  margin-top: env(titlebar-area-height);
+  height: calc(100vh - env(titlebar-area-height));
+  box-sizing: border-box;
+}
