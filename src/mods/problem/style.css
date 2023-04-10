@@ -1,0 +1,6 @@
+@import url('../../../node_modules/katex/dist/katex.min.css');
+
+#main {
+  overflow: hidden scroll;
+  padding: 15px;
+}

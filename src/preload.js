@@ -15,7 +15,7 @@ window.addEventListener('keydown', async event => {
   }
 });
 
-contextBridge.exposeInMainWorld('dcAPI', {
+contextBridge.exposeInMainWorld('dcAPIs', {
   /**
    * @param {string} code
    * @param {string} stdin
