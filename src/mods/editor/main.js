@@ -20,4 +20,10 @@ export const setup = async () => {
       tabSize: 2,
     }
   );
+
+  window.modAPI = {
+    getCode () {
+      return editor.getValue();
+    }
+  };
 };

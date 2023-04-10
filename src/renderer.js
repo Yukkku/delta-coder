@@ -3,6 +3,7 @@
 /**
  * @typedef {{
  *   setup: () => Promise<any>,
+ *   stylePath?: string,
  * }}
  * Mod
  */
@@ -19,6 +20,13 @@ if (mods[tabTitle]) {
   /** @type {Mod} */
   const mod = mods[tabTitle];
   await mod.setup();
+  if (mod.stylePath) {
+    document.head.appendChild(Object.assign(document.createElement('link'), {
+      rel: 'stylesheet',
+      type: 'text/css',
+      href: mod.stylePath,
+    }));
+  }
 } else {
   /** @type {HTMLDivElement} */ // @ts-ignore: index.html上にあるので非null
   const mainElem = document.getElementById('main');

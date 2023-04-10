@@ -3,6 +3,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
+require('./mods/tester/server');
 
 /** @type {Electron.BrowserWindowConstructorOptions} */
 const defaultWindowOptions = {
@@ -46,13 +47,11 @@ app.whenReady().then(() => {
     });
   });
 
-  createWindow('problem');
-  createWindow('editor');
+  createWindow('tester');
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow('problem');
-      createWindow('editor');
+      createWindow('tester');
     }
   });
 });

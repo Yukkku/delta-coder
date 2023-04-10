@@ -1,14 +1,12 @@
 // @ts-check
 
-import katex from 'katex';
+import katex from '../../../node_modules/katex/dist/katex.mjs';
 
 document.head.appendChild(Object.assign(document.createElement('link'), {
   rel: 'stylesheet',
   type: 'text/css',
   href: '../node_modules/katex/dist/katex.min.css',
 }));
-
-console.log(katex);
 
 export const setup = async () => {
   const htmlText = await fetch('https://atcoder.jp/contests/abs/tasks/arc065_a').then(res => res.text());
