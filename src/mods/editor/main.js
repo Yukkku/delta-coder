@@ -25,3 +25,7 @@ export const modAPIs = {
     return editor.getValue();
   }
 };
+
+window.addEventListener('resize', () => {
+  editor.layout();
+});
