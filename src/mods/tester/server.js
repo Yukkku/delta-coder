@@ -6,6 +6,7 @@ const fs = require('fs');
 
 /**
  * @param {number} timeLimit
+ * @param {string} stdin
  * @returns {Promise<{
  *   stdout: string,
  *   stderr: string,
@@ -13,12 +14,14 @@ const fs = require('fs');
  *   time: number,
  * }>}
  */
-const test = (timeLimit) => new Promise(resolve => {
+const test = (timeLimit, stdin) => new Promise(resolve => {
   const proc = exec('node ./judge/main.js');
   const startTime = performance.now();
 
   let stdout = '';
   let stderr = '';
+  proc.stdin?.write(stdin);
+  proc.stdin?.end();
   proc.stdout?.on('data', data => stdout += data);
   proc.stderr?.on('data', data => stderr += data);
 
@@ -42,8 +45,9 @@ ipcMain.handle('dc-tester',
  * @param {string} stdin
  */
 async (event, code, stdin) => {
+  if (stdin.at(-1) !== '\n') stdin += '\n';
   fs.writeFileSync('./judge/main.js', new TextEncoder().encode(code));
-  const result = await test(1000);
+  const result = await test(1000, stdin);
   return result;
 });
 

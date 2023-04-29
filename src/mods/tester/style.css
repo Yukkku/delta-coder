@@ -3,6 +3,18 @@
   overflow: hidden auto;
 }
 
+#stdin {
+  display: block;
+  background-color: #333;
+  color: #fff;
+  width: calc(100% - 40px);
+  margin: 10px;
+  border: 0;
+  padding: 10px;
+  font-family: var(--font-monospace);
+  resize: vertical;
+}
+
 #main > div {
   white-space: pre-wrap;
   word-break: break-all;
